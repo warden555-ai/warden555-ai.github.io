@@ -265,20 +265,10 @@ function hyperPanelHTML(t, fromFolio){
 function buildAlphabet(){
   const host=document.getElementById("alphabet");
   if(!host) return;
-  const confName={c:"confirmed",p:"provisional",u:"undetermined",v:"variant"};
-  host.innerHTML=ALPHABET.map(a=>{
-    let ex="";
-    if(a.example){
-      const pred=rebusFor(a.example).predicted;
-      ex='<div>try it: <span class="aexample" onclick="showHyper(\''+esc(a.example)+'\')">'+
-        esc(a.example)+'</span> <span class="tag">\u2192 '+esc(pred)+"</span></div>";
-    }
-    return '<div class="acard"><div class="aglyph">'+esc(a.slot)+"</div>"+
-      '<div class="aemoji">'+a.emoji+"</div>"+
-      '<div class="abody"><div><span class="ameaning">'+esc(a.meaning)+"</span>"+
-      '<span class="conf conf-'+a.conf[0]+'">'+confName[a.conf[0]]+"</span></div>"+
-      ex+(a.note?'<div class="anote">'+esc(a.note)+"</div>":"")+"</div></div>";
-  }).join("");
+  host.innerHTML=ALPHABET.map(a=>
+    '<div class="acell"><div class="aglyph">'+esc(a.slot)+"</div>"+
+    '<div class="aemoji">'+a.emoji+"</div></div>"
+  ).join("");
 }
 
 function initHyperglyph(){

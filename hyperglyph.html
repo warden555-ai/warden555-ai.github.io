@@ -31,9 +31,10 @@ h2{color:#6b4f1d;margin-top:36px}
 table{border-collapse:collapse;width:100%;background:#fffdf5}
 th,td{border:1px solid #d8cba0;padding:7px 10px;text-align:left}
 th{background:#e8dcc0}
-.acard{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #d8cba0;border-radius:8px;padding:6px 10px;margin:5px 0}
-.aglyph{font-family:ui-monospace,monospace;font-size:17px;font-weight:bold;min-width:60px;color:#2b2118}
-.aemoji{font-size:24px;min-width:40px;text-align:center}
+.emgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+.acell{background:#fff;border:1px solid #d8cba0;border-radius:6px;padding:6px 2px;text-align:center}
+.aglyph{font-family:ui-monospace,monospace;font-size:14px;font-weight:bold;color:#2b2118}
+.aemoji{font-size:22px;margin-top:2px}
 .abody{flex:1;min-width:0}
 .ameaning{font-size:15px;font-weight:bold}
 .aexample{font-family:ui-monospace,monospace;font-size:14px;color:#1e6eff;cursor:pointer;text-decoration:underline}
@@ -64,10 +65,10 @@ The slots themselves aren't clicked; they work behind the scenes to build the re
 </div>
 <div id="hpanel" class="panel" hidden></div>
 <div id="reader" class="panel"></div>
-<h2>🔤 Slot Alphabet — Shannon's key</h2>
+<h2>Emoji Library</h2>
 <div class="panel">
-<div class="note" style="margin-top:0">Read a word's emojis left to right — that's the rebus. The predicted meaning follows. ❓ marks slots Shannon hasn't named yet. Tap any example word to read it.</div>
-<div id="alphabet"></div>
+<div class="note" style="margin-top:0">Shannon's key: read a word's emojis left to right — that's the rebus.</div>
+<div id="alphabet" class="emgrid"></div>
 </div>
 <div class="note">Experimental: the first draft of reading, not the last. Built from Shannon's
 April 2026 slot dictionary and the October label analysis. The full slot map is still being drawn —
