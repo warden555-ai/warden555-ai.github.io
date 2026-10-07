@@ -296,6 +296,9 @@ function initHyperglyph(){
       sel.appendChild(o);
     });
     sel.value="1r";
+    /* Deep link from the Glyph Library pictures panel: hyperglyph.html#folio=45r */
+    const hm=String(location.hash||"").match(/folio=([0-9]+[rv][12]?)/);
+    if(hm && folioOptionExists(hm[1])) sel.value=hm[1];
     sel.addEventListener("change",renderHyperfolio);
   }
   buildAlphabet();
