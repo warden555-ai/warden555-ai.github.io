@@ -111,3 +111,30 @@ that's the rebus. The predicted meaning follows."
 - Anchor quality improves as the label-vs-text classification completes; the
   `SLOT_INFO` anchor table is designed to be edited as that lands.
 - Consider Shannon's sparser-clickable options above once he's seen this version.
+
+## Fix round 2 (2026-10-06 evening — Shannon's review of the live page)
+
+1. **Alphabet shrunk.** `.aglyph` 30px→17px (min-width 88→60px), `.aemoji`
+   40px→24px (min-width 56→40px), `.acard` padding 10/14→6/10px, margin
+   8→5px, gap 14→10px; `.ameaning` 18→15px, `.aexample` 16→14px.
+   Roughly half size, still glanceable on a phone.
+2. **Click now navigates (old-manuscript behavior).** `showHyper(t)` computes
+   the word's anchor via new `anchorForWord(t)` (anchor of the first known
+   slot). If the anchor differs from the current folio and exists in the
+   folio selector, the view jumps there and the rebus panel renders at the
+   top of the destination with a "📍 from "<word>" on folio <X> — jumped to
+   its anchor" note. New helpers: `folioOptionExists(f)`, `panelHome()`
+   (recovers the panel if a previous jump left it inside the reader before
+   `renderHyperfolio()` wipes it), and `hyperPanelHTML(t, fromFolio)` holding
+   the shared panel markup. Words with no known slots, anchors missing from
+   the selector, or anchor == current folio read in place (previous
+   behavior). Anchor buttons inside the panel still jump in-view via
+   `goAnchor`. Explainer note on the page and the JS header comment updated.
+3. **Mentors findable.** `🤝 Mentors` link added to the topnav of
+   `index.html` and `hyperglyph.html`, pointing at `backstory.html#mentors`
+   (the section added earlier this evening).
+
+Testing: `node --check` clean; DOM-stub functional tests all pass —
+jump-to-anchor with from-note and panel-at-top, in-place fallback for
+unknown/unlisted/same-folio anchors, panel recovery after consecutive
+jumps, reader content intact, segmentation and clickable rule unchanged.

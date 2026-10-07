@@ -4,9 +4,17 @@
    Shannon's model: Voynich "words" are not words. They are SLOT-WORDS
    (hyperglyphs) — up to three slot-syllables that work like a rebus:
    small picture-pieces that combine into a pointer ("see page 17,
-   figure 4"). Click a blue hyperglyph and the panel shows its emoji
-   rebus (one emoji per slot) plus the predicted meaning composed from
-   Shannon's slot dictionary (April 2026 sessions).
+   figure 4"). Click a blue hyperglyph and the view jumps to the folio it
+   points to, then shows its emoji rebus (one emoji per slot) plus the
+   predicted meaning composed from Shannon's slot dictionary (April 2026
+   sessions).
+
+   CLICK BEHAVIOR ("showHyper") — like the old clickable manuscript:
+     Click a blue hyperglyph word and the view JUMPS to the folio its slots
+     point to (anchor of the word's first known slot), then shows the rebus
+     panel at the top of the destination: emoji rebus + predicted meaning,
+     with a "from <word> on folio <X>" note. Words with no known slots,
+     or whose anchor is the folio already showing, read in place instead.
 
    CLICKABLE RULE ("isHyperglyph"):
      A token is clickable iff it contains one of the multi-character
@@ -142,6 +150,31 @@ function currentFolio(){
   return sel?sel.value:"1r";
 }
 
+/* The folio a hyperglyph word points to: the anchor of its first known
+   slot. Null when the word has no known slots at all. */
+function anchorForWord(t){
+  const parts=segmentSlots(t.toLowerCase());
+  for(const p of parts){
+    if(p.key && SLOT_INFO[p.key] && SLOT_INFO[p.key].anchor) return SLOT_INFO[p.key].anchor;
+  }
+  return null;
+}
+
+function folioOptionExists(f){
+  const sel=document.getElementById("foliosel");
+  if(!sel) return false;
+  for(const o of sel.options){ if(o.value===f) return true; }
+  return false;
+}
+
+/* The panel's home is the slot right above the reader. A previous jump
+   may have moved it inside the reader — pull it back out first. */
+function panelHome(){
+  const panel=document.getElementById("hpanel");
+  const rd=document.getElementById("reader");
+  if(panel && rd && panel.parentNode===rd) rd.parentNode.insertBefore(panel, rd);
+}
+
 function goAnchor(f){
   const sel=document.getElementById("foliosel");
   if(sel){
@@ -177,8 +210,33 @@ function renderHyperfolio(){
 }
 
 function showHyper(t){
-  const r=rebusFor(t);
+  const from=currentFolio();
+  const dest=anchorForWord(t);
   const panel=document.getElementById("hpanel");
+  const rd=document.getElementById("reader");
+  panelHome(); /* pull the panel out of the reader if a previous jump left it there */
+  if(dest && dest!==from && folioOptionExists(dest)){
+    /* Like the old clickable manuscript: jump to the folio the word points to,
+       and read its rebus there. */
+    document.getElementById("foliosel").value=dest;
+    renderHyperfolio();
+    panel.hidden=false;
+    panel.innerHTML=hyperPanelHTML(t, from);
+    rd.insertBefore(panel, rd.firstChild);
+  } else {
+    /* No meaningful anchor (or already there) — read it where it stands. */
+    panel.hidden=false;
+    panel.innerHTML=hyperPanelHTML(t, null);
+  }
+  panel.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function hyperPanelHTML(t, fromFolio){
+  const r=rebusFor(t);
+  const panelNote=fromFolio
+    ? '<div class="tag" style="margin-bottom:6px">\uD83D\uDCCD from &quot;'+esc(t)+
+      '&quot; on folio '+esc(fromFolio)+' — jumped to its anchor</div>'
+    : '';
   const slotLine=r.parts.map(p=>{
     if(p.key){
       const info=SLOT_INFO[p.key];
@@ -195,15 +253,13 @@ function showHyper(t){
       return '<button class="anchorbtn" onclick="goAnchor(\''+info.anchor+"\')\">"+
         info.emoji+" "+esc(p.key)+" \u2192 "+esc(info.anchor)+"</button>";
     }).join(" ");
-  panel.hidden=false;
-  panel.innerHTML=
+  return panelNote+
     '<div class="hwordrow"><span class="hword">'+esc(t)+"</span>"+
     '<span class="hrebus">'+r.emojis+"</span></div>"+
     '<div class="hpredicted">predicted: <b>'+esc(r.predicted)+"</b></div>"+
     '<div class="hslotsline"><span class="tag">slots:</span> '+slotLine+"</div>"+
     (anchors?'<div class="hanchors"><span class="tag">anchors:</span> '+anchors+"</div>":"")+
     '<div class="tag" style="margin-top:6px">Click another blue word to read it. Blue words are the only links on this page.</div>';
-  panel.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 function buildAlphabet(){
