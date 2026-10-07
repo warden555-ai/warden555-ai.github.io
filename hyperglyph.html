@@ -45,6 +45,13 @@ th{background:#e8dcc0}
 .conf-p{background:#fcf3d9;color:#8a6d3b}
 .conf-u{background:#f3e2e2;color:#a00}
 .conf-v{background:#e2e8f3;color:#2e4a6b}
+.picgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.piccard{display:block;background:#fff;border:1px solid #d8cba0;border-radius:6px;overflow:hidden;text-decoration:none;color:#2b2118;cursor:pointer}
+.piccard:hover{box-shadow:0 0 0 2px #8a6d3b}
+.piccard img{width:100%;height:110px;object-fit:cover;display:block;background:#e8dcc0}
+.piccap{padding:6px 8px;font-weight:bold;font-size:14px}
+.steparrow{text-align:center;font-size:22px;color:#8a6d3b;margin:2px 0}
+.slotstep h3{margin:8px 0;color:#6b4f1d}
 </style></head><body>
 <nav class="topnav">
 <a href="index.html">🔍 Glyph Index</a>
@@ -65,6 +72,45 @@ The slots themselves aren't clicked; they work behind the scenes to build the re
 </div>
 <div id="hpanel" class="panel" hidden></div>
 <div id="reader" class="panel"></div>
+<h2>Slot Language <span class="tag">follow a recipe</span></h2>
+<div class="panel">
+<div class="note" style="margin-top:0">The manuscript is written in <b>directions, not words</b>.
+Each word is made of slots — beginning, middle, end. A slot isn't a definition,
+it's an <b>address</b>: it points somewhere in the book. You don't translate a word.
+You follow it. <b>We don't know what it says, but we know where it goes.</b></div>
+
+<div class="slotstep" id="sl-step1">
+<h3>① The paragraph</h3>
+<div class="note" style="margin-top:0">The paragraph is slot language too. The blue words work like the reader above — click one and follow it.</div>
+<div id="sl-para"></div>
+<div class="tag" style="margin-top:6px">Folio 89r — picked for its ol-words.</div>
+<button class="anchorbtn" onclick="slShow(2)">Follow it → show the containers</button>
+</div>
+
+<div class="slotstep" id="sl-step2" hidden>
+<div class="steparrow">⬇</div>
+<h3>② The containers</h3>
+<div class="note" style="margin-top:0">The paragraph points to containers. These pages are thick with ol 🏺 — tap a jar page to read its label.</div>
+<div id="sl-jars" class="picgrid"></div>
+</div>
+
+<div class="slotstep" id="sl-step3" hidden>
+<div class="steparrow">⬇</div>
+<h3>③ The labels</h3>
+<div class="note" style="margin-top:0">The container tells you what's in it. One jar on 99r carries the label "okolo":</div>
+<div id="sl-label"></div>
+<div class="tag" style="margin-top:6px">Candidate reading — the label sits on jar 1, folio 99r; transcription coordinates are approximate.</div>
+<button class="anchorbtn" onclick="slShow(4)">Assemble the recipe →</button>
+</div>
+
+<div class="slotstep" id="sl-step4" hidden>
+<div class="steparrow">⬇</div>
+<h3>④ The recipe</h3>
+<div class="note" style="margin-top:0;margin-bottom:0">One container of this. One container of that. Put them together — and you have this.<br><br>
+We can't name the ingredients yet. But the shape of the recipe is right there: the words are the ingredient list, the jars are the measures. <b>ol-X isn't "jar, X" — it's one jarful of X.</b></div>
+<div class="tag" style="margin-top:8px">11 of 12 named slots point somewhere real — tested against all 37,464 words. The rebus is the reading.</div>
+</div>
+</div>
 <h2>Emoji Library</h2>
 <div class="panel">
 <div class="note" style="margin-top:0">Shannon's key: read a word's emojis left to right — that's the rebus.</div>
@@ -74,5 +120,6 @@ The slots themselves aren't clicked; they work behind the scenes to build the re
 April 2026 slot dictionary and the October label analysis. The full slot map is still being drawn —
 as it fills in, these readings get sharper.</div>
 <script src="hyperglyph-data.js"></script>
+<script src="glyph-folio-index.js"></script>
 <script src="hyperglyph.js"></script>
 </body></html>

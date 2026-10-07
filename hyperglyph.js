@@ -288,6 +288,66 @@ function buildAlphabet(){
   ).join("");
 }
 
+/* ---------------- Slot Language trail: follow a recipe ----------------
+   Step 1: a real pharma paragraph (89r, rich in ol-words), rendered with
+   the same clickable-word markup as the reader. Step 2: the container
+   pages ol points to (from glyph-folio-index.js); tapping one reveals
+   Step 3: the worked jar-label example. Step 4: the assembled reading. */
+function slShow(n){
+  for(let i=2;i<=n;i++){
+    const s=document.getElementById('sl-step'+i);
+    if(s) s.hidden=false;
+  }
+  const t=document.getElementById('sl-step'+n);
+  if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function buildSlotLang(){
+  const para=document.getElementById('sl-para');
+  if(para && typeof HGLYPH_FOLIOS!=='undefined' && HGLYPH_FOLIOS['89r']){
+    const lines=HGLYPH_FOLIOS['89r'].slice(39,41);
+    para.innerHTML=lines.map(ln=>{
+      const toks=ln.split('.').map(w=>w.trim()).filter(w=>w);
+      const tline=toks.map(w=>{
+        if(isHyperglyph(w)){
+          return '<span class="hlink" onclick="showHyper(\''+esc(w)+'\')">'+esc(w)+'</span>';
+        }
+        return '<span class="hplain">'+esc(w)+'</span>';
+      }).join(' ');
+      return '<div class="tline">'+tline+'</div>';
+    }).join('');
+  }
+  const jars=document.getElementById('sl-jars');
+  if(jars && typeof GLYPH_FOLIOS!=='undefined'){
+    const olEntries=GLYPH_FOLIOS['ol-']||[];
+    const picks=[['99r','the red jars'],
+      ['99v',null],['89r',null],['102r',null]];
+    jars.innerHTML=picks.map(([f,feat])=>{
+      const info=(typeof GLYPH_FOLIO_IMG!=='undefined'&&GLYPH_FOLIO_IMG[f])||{};
+      const hit=olEntries.find(e=>e[0]===f);
+      const cap=feat? f+' \u00B7 '+feat : f+(hit?' \u00B7 '+hit[1].toLocaleString():'');
+      return '<div class="piccard" onclick="slShow(3)">'+
+        '<img src="'+(info.img||'')+'" alt="folio '+esc(f)+'" loading="lazy">'+
+        '<div class="piccap">'+esc(cap)+'</div></div>';
+    }).join('');
+  }
+  const lab=document.getElementById('sl-label');
+  if(lab && typeof rebusFor!=='undefined'){
+    const r=rebusFor('okolo');
+    lab.innerHTML='<div class="hwordrow"><span class="hword">okolo</span>'+
+      '<span class="hrebus">'+r.emojis+'</span></div>'+
+      '<div class="hslotsline">'+r.parts.map(p=>{
+        if(p.key && typeof SLOT_INFO!=='undefined' && SLOT_INFO[p.key]){
+          const info=SLOT_INFO[p.key];
+          return '<span class="hslot"><span class="hem">'+info.emoji+'</span> <b>'+esc(p.key)+
+            '</b> <span class="tag">'+esc(info.meaning)+'</span></span>';
+        }
+        return '<span class="hslot"><span class="hem">\u2753</span> <b>'+esc(p.raw||p.key)+
+          '</b> <span class="tag">unmapped</span></span>';
+      }).join(' ')+'</div>';
+  }
+}
+
 function initHyperglyph(){
   const sel=document.getElementById("foliosel");
   if(sel && typeof HGLYPH_ORDER!=="undefined"){
@@ -302,6 +362,7 @@ function initHyperglyph(){
     sel.addEventListener("change",renderHyperfolio);
   }
   buildAlphabet();
+  buildSlotLang();
   renderHyperfolio();
 }
 

@@ -229,3 +229,44 @@ inline library script; DOM-stub tests: all 43 cell labels resolve in the index,
 all 516 entries have image info, `#folio=45r` pre-selects 45r, bad hash falls
 back to 1r. No headless browser — eyeball pass on a phone still recommended,
 especially thumbnail loading and the jump from a picture card.
+
+## Slot Language section — "Follow a recipe" chain (2026-10-06 night, Shannon's redirect)
+
+Shannon wanted tonight's discoveries as a CONNECTED trail, not isolated cards:
+a new **"Slot Language"** section on `hyperglyph.html`, right after the reader
+panel and before the Emoji Library. Four clickable steps:
+
+1. **① The paragraph** — a real pharma paragraph (89r lines 39–40, the richest
+   ol-lines in the book: 78 ol-tokens on the folio), rendered with the same
+   blue-word markup as the reader; clicks call the normal `showHyper` path.
+   Caption: "The paragraph is slot language too."
+2. **② The containers** — revealed by "Follow it → show the containers";
+   4 jar-page thumbnails (99r featured as "the red jars", plus 99v/89r/102r
+   from `GLYPH_FOLIOS['ol-']` via the already-loaded `glyph-folio-index.js`,
+   now also included on hyperglyph.html). Tapping a card reveals step 3.
+   Caption: "The paragraph points to containers."
+3. **③ The labels** — the worked jar-label example: "okolo" → o|k|ol|o
+   (🌀🔗🏺🌀) rendered live via `rebusFor` + `SLOT_INFO`, flagged as a
+   candidate reading (label on jar 1, 99r; transcription coordinates
+   approximate). Caption: "The container tells you what's in it."
+4. **④ The recipe** — the assembled reading in plain words ("one container
+   of this…", "ol-X isn't 'jar, X' — it's one jarful of X"), ending with the
+   honest line: "11 of 12 named slots point somewhere real — tested against
+   all 37,464 words. The rebus is the reading."
+
+Thesis block at the top of the section, in Shannon's words: directions not
+words; a slot is an address; you don't translate a word, you follow it;
+"we don't know what it says, but we know where it goes."
+
+Implementation: `buildSlotLang()` + `slShow(n)` in `hyperglyph.js` (called
+from `initHyperglyph`); section markup + `.picgrid`/`.piccard`/`.steparrow`
+CSS in `hyperglyph.html` (piccard styles mirror glyph-library.html);
+`glyph-folio-index.js` added to hyperglyph.html's script tags. Steps 2–4
+start `hidden` and reveal progressively with smooth scroll.
+
+Testing: `node --check` clean; DOM-stub tests — 2 paragraph lines, 30
+clickable words (standalone "ol" blue), 4 jar cards all with image srcs,
+okolo → 4 chips (o|k|ol|o), reveal chain slShow(2)→slShow(4) opens all steps
+with scroll targets, `showHyper('olcheol')` from a step-1 word opens the
+panel normally, 202 folio options intact. No headless browser — eyeball
+pass on a phone still recommended.
