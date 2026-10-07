@@ -138,3 +138,55 @@ Testing: `node --check` clean; DOM-stub functional tests all pass —
 jump-to-anchor with from-note and panel-at-top, in-place fallback for
 unknown/unlisted/same-folio anchors, panel recovery after consecutive
 jumps, reader content intact, segmentation and clickable rule unchanged.
+
+## Full inventory + Glyph Library page (2026-10-06 night — Shannon: "all of them")
+
+**Inventory.** Greedy longest-match segmentation of all 37,464 EVA tokens in
+`manuscript-pages/boxes.json`, parts tallied by position (first=prefix,
+last=suffix, middle=midfix). Full tables: `slot-inventory-full.md`
+(43 slots at n≥100 shown; 415 rarer fragments omitted from the page).
+
+**New slots promoted into the segmenter** (appended LAST in SLOT_KEYS, so every
+pre-existing segmentation is byte-identical): `ch ee ey or al ain y o`.
+Verified: shedy→she|dy, qodaiin→qo|daiin, chedy→che|dy, qokeedy→qo|k|ee|dy
+all unchanged in their known parts; only previously-unknown runs split finer.
+Single-letter candidates NOT promoted (fragmentation risk — kept as ❓ library
+entries): e d s t l c r n f h m a.
+
+**New heavy slots Shannon hadn't named** (all ❓, all his to name):
+ch- (5940, prefix), -ee- (3486, midfix), d- (3113, prefix), -al (3078, suffix),
+-or (2713, suffix), -e- (2584, midfix), -t- (2483, midfix), s- (2221, prefix),
+l- (1656, prefix), -ey (1444, suffix), -ain (1293, suffix).
+
+**Position surprises** (his meanings untouched; only grouping follows the data):
+`ol` is mostly a SUFFIX (2814 suffix vs 1055 prefix), `k` is overwhelmingly a
+MIDFIX (9611 midfix), `ot` is overwhelmingly a PREFIX (2402 prefix), `p` leans
+midfix, `she` leans prefix. His dash labels are kept as-is everywhere; the
+Glyph Library groups by dominant position.
+
+**Unique-emoji rule** (Shannon: no repeats anywhere in the library).
+De-duplicated: o- 🌀 (was 🌊), -aiin 🫧 (was 💧), -iin 💦 (was 💧).
+daiin (whole-unit, SLOT_INFO only) → 🌧️ — Shannon's own "raiin" joke.
+Undetermined slots stay ❓ (repeats of ❓ allowed — they're all unnamed).
+Verified zero duplicate emojis across ALPHABET and SLOT_INFO.
+
+**Clickable-token rule refined.** `isHyperglyph` now uses segmented-part
+matching instead of substring containment: a word is clickable iff the
+segmenter finds a real multi-char slot in it (or it's a standalone k/p/y/o).
+Zero regressions vs the old rule (no previously-clickable word lost);
+newly clickable are principled additions: or al dal chor okeey chy y okain
+ain o dor cho. Clickable fraction: 77.1% → **92.9%** — honest linguistic
+fact (the new affixes really are everywhere), but high: Shannon's sparser
+options (multi-affix composites only / top-N / standalone-only) still open.
+
+**Glyph Library page** (`glyph-library.html`): standalone page, 43 slots in
+stacked glyph-over-emoji cells with counts, grouped Prefixes (13) / Middles
+(15) / Suffixes (15), sorted by frequency. ❓ = Shannon hasn't named it.
+Nav: 📚 Glyph Library linked from index.html, manuscript.html, hyperglyph.html
+topnavs. The small Emoji Library grid on hyperglyph.html is unchanged (his
+16-slot quick key, deduped emojis applied).
+
+Testing: node --check clean; rebus sanity (shedy→❓📦 "source? of thing",
+qokeedy→🌊🔗❓📦, qodaiin→🌊🌧️ "flow of life", daiin→🌧️ "life"); emoji
+uniqueness asserted in node; library page structurally validated (43 cells,
+3 sections). No headless browser — eyeball pass still recommended.

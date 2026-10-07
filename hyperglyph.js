@@ -57,27 +57,39 @@
    clicked into.
    ===================================================================== */
 
-const SLOT_KEYS = ["daiin","aiin","dai","che","she","qo","ol","dy","iin","ot","sh","ar","k","p"];
+const SLOT_KEYS = ["daiin","aiin","dai","che","she","qo","ol","dy","iin","ot","sh","ar","k","p",
+  /* appended 2026-10-06 (full inventory): checked LAST, so every pre-existing
+     segmentation is unchanged — these only split previously-unknown runs */
+  "ch","ee","ey","or","al","ain","y","o"];
 
 const SLOT_INFO = {
   qo:    {emoji:"\uD83C\uDF0A", meaning:"flow",       note:"often with water, cycles",                 anchor:"87v"},
   dy:    {emoji:"\uD83D\uDCE6", meaning:"thing",      note:"common noun suffix",                       anchor:"45r"},
   ol:    {emoji:"\uD83C\uDFFA", meaning:"container",  note:"vessel; often plant / liquid themes",      anchor:"78v"},
-  aiin:  {emoji:"\uD83D\uDCA7", meaning:"life/water", note:"",                                        anchor:"67r2"},
+  aiin:  {emoji:"\uD83E\uDEE7", meaning:"life/water", note:"",                                        anchor:"67r2"},
   dai:   {emoji:"\uD83D\uDCA7", meaning:"life",       note:"",                                        anchor:"89r2"},
-  daiin: {emoji:"\uD83D\uDCA7", meaning:"life",       note:"whole-unit form of dai+iin",               anchor:"89r2"},
+  daiin: {emoji:"\uD83C\uDF27\uFE0F", meaning:"life",       note:"whole-unit form of dai+iin \u2014 Shannon's 'raiin'",               anchor:"89r2"},
   k:     {emoji:"\uD83D\uDD17", meaning:"connect",    note:"link; relationships, patterns",            anchor:"57v"},
   che:   {emoji:"\uD83D\uDD04", meaning:"change",     note:"",                                        anchor:"105v"},
-  iin:   {emoji:"\uD83D\uDCA7", meaning:"water",      note:"bound suffix — never stands alone",        anchor:"67r2"},
+  iin:   {emoji:"\uD83D\uDCA6", meaning:"water",      note:"bound suffix — never stands alone",        anchor:"67r2"},
   ot:    {emoji:"\uD83D\uDEE4\uFE0F", meaning:"path", note:"",                                        anchor:"67r1"},
   sh:    {emoji:"\u26F2",       meaning:"source",     note:"",                                        anchor:"66r"},
   ar:    {emoji:"\u26A1",       meaning:"action",     note:"",                                        anchor:"67r2"},
   p:     {emoji:"\u2728",       meaning:"create",     note:"",                                        anchor:"49v"},
-  she:   {emoji:"\u2753",       meaning:"source?",    note:"UNDETERMINED — Shannon hasn't named it yet", anchor:"43r"}
+  she:   {emoji:"\u2753",       meaning:"source?",    note:"UNDETERMINED — Shannon hasn't named it yet", anchor:"43r"},
+  ch:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  ee:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  ey:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  or:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  al:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  ain:   {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  y:     {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  o:     {emoji:"\uD83C\uDF00", meaning:"flow",  note:"variant of qo- \u2014 Shannon's label", anchor:null}
 };
 
 /* Multi-char affixes that make a token a hyperglyph by containment. */
-const MULTI = ["daiin","aiin","dai","che","she","qo","ol","dy","iin","ot","sh","ar"];
+const MULTI = ["daiin","aiin","dai","che","she","qo","ol","dy","iin","ot","sh","ar",
+  "ch","ee","ey","or","al","ain"];
 
 /* =====================================================================
    SLOT ALPHABET — Shannon's key (display only; drives the chart, never
@@ -90,8 +102,8 @@ const ALPHABET = [
   {slot:"-dy",   emoji:"\uD83D\uDCE6", meaning:"thing",               example:"shedy",    conf:"confirmed",    note:"common noun suffix"},
   {slot:"ol-",   emoji:"\uD83C\uDFFA", meaning:"container / vessel",  example:"olchedy",  conf:"confirmed",    note:"often plant / liquid themes"},
   {slot:"dai-",  emoji:"\uD83D\uDCA7", meaning:"life",                example:"daiin",    conf:"confirmed",    note:""},
-  {slot:"-aiin", emoji:"\uD83D\uDCA7", meaning:"life / water",        example:"daiin",    conf:"confirmed",    note:""},
-  {slot:"-iin",  emoji:"\uD83D\uDCA7", meaning:"water",               example:"daiin",    conf:"confirmed",    note:"bound suffix — never stands alone"},
+  {slot:"-aiin", emoji:"\uD83E\uDEE7", meaning:"life / water",        example:"daiin",    conf:"confirmed",    note:""},
+  {slot:"-iin",  emoji:"\uD83D\uDCA6", meaning:"water",               example:"daiin",    conf:"confirmed",    note:"bound suffix — never stands alone"},
   {slot:"k-",    emoji:"\uD83D\uDD17", meaning:"connect / link",      example:"qokeedy",  conf:"confirmed",    note:"relationships, patterns"},
   {slot:"che-",  emoji:"\uD83D\uDD04", meaning:"change",              example:"olchedy",  conf:"confirmed",    note:""},
   {slot:"-ot",   emoji:"\uD83D\uDEE4\uFE0F", meaning:"path",          example:null,       conf:"provisional",  note:""},
@@ -99,14 +111,19 @@ const ALPHABET = [
   {slot:"-ar",   emoji:"\u26A1",       meaning:"action",              example:null,       conf:"provisional",  note:""},
   {slot:"p-",    emoji:"\u2728",       meaning:"create",              example:null,       conf:"provisional",  note:""},
   {slot:"-she-", emoji:"\u2753",       meaning:"undetermined",        example:"shedy",    conf:"undetermined", note:"Shannon to name"},
-  {slot:"o-",    emoji:"\uD83C\uDF0A", meaning:"flow",                example:null,       conf:"variant",      note:"prefix variant of qo-"},
+  {slot:"o-",    emoji:"\uD83C\uDF00", meaning:"flow",                example:null,       conf:"variant",      note:"prefix variant of qo-"},
   {slot:"-y",    emoji:"\u2753",       meaning:"undetermined",        example:null,       conf:"undetermined", note:"common ending"},
   {slot:"-k-",   emoji:"\u2753",       meaning:"undetermined",        example:null,       conf:"undetermined", note:"common midfix"}
 ];
 
 function isHyperglyph(w){
-  if(w==="k"||w==="p") return true;          /* standalone single-letter slots */
-  for(const a of MULTI){ if(w.indexOf(a)!==-1) return true; }
+  if(w==="k"||w==="p"||w==="y"||w==="o") return true;  /* standalone single-letter slots */
+  /* A word is a hyperglyph iff the segmenter actually finds a multi-char
+     slot in it — not mere substring containment, which over-matches now
+     that the inventory added short affixes like "or"/"al" (inventory
+     2026-10-06: this keeps the Christmas-tree problem fixed). */
+  const parts=segmentSlots(w);
+  for(const p of parts){ if(p.key && MULTI.indexOf(p.key)!==-1) return true; }
   return false;
 }
 
