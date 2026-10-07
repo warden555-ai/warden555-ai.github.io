@@ -77,14 +77,14 @@ const SLOT_INFO = {
   ar:    {emoji:"\u26A1",       meaning:"action",     note:"",                                        anchor:"67r2"},
   p:     {emoji:"\u2728",       meaning:"create",     note:"",                                        anchor:"49v"},
   she:   {emoji:"\u2753",       meaning:"source?",    note:"UNDETERMINED — Shannon hasn't named it yet", anchor:"43r"},
-  ch:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
+  ch:    {emoji:"\U0001F963", meaning:"mix / combine", note:"Ed\u2019s lead (thevoynich.org id 480: cho=combinatum+oleum)", anchor:null},
   ee:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
   ey:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
   or:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
   al:    {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
   ain:   {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
   y:     {emoji:"\u2753", meaning:"undetermined", note:"inventory 2026-10-06", anchor:null},
-  o:     {emoji:"\uD83C\uDF00", meaning:"flow",  note:"variant of qo- \u2014 Shannon's label", anchor:null}
+  o:     {emoji:"\U0001FA94", meaning:"oil",   note:"Ed\u2019s lead (thevoynich.org id 480); was: flow variant of qo-", anchor:null}
 };
 
 /* Multi-char affixes that make a token a hyperglyph by containment. */
@@ -111,7 +111,7 @@ const ALPHABET = [
   {slot:"-ar",   emoji:"\u26A1",       meaning:"action",              example:null,       conf:"provisional",  note:""},
   {slot:"p-",    emoji:"\u2728",       meaning:"create",              example:null,       conf:"provisional",  note:""},
   {slot:"-she-", emoji:"\u2753",       meaning:"undetermined",        example:"shedy",    conf:"undetermined", note:"Shannon to name"},
-  {slot:"o-",    emoji:"\uD83C\uDF00", meaning:"flow",                example:null,       conf:"variant",      note:"prefix variant of qo-"},
+  {slot:"o-",    emoji:"\U0001FA94", meaning:"oil",                 example:null,       conf:"provisional",  note:"Ed\u2019s lead (id 480)"},
   {slot:"-y",    emoji:"\u2753",       meaning:"undetermined",        example:null,       conf:"undetermined", note:"common ending"},
   {slot:"-k-",   emoji:"\u2753",       meaning:"undetermined",        example:null,       conf:"undetermined", note:"common midfix"}
 ];
