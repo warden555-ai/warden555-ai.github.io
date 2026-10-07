@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hyperglyph Manuscript — Voynich slot-language reader</title>
+<style>
+body{font-family:Georgia,serif;background:#f4ecd8;color:#2b2118;max-width:1100px;margin:0 auto;padding:20px}
+h1{border-bottom:3px double #8a6d3b;padding-bottom:10px}
+h2{color:#6b4f1d;margin-top:36px}
+.panel{background:#fffdf5;border:1px solid #c9b98a;border-radius:8px;padding:18px;margin-top:16px}
+.note{background:#f9f3e2;border-left:4px solid #8a6d3b;padding:10px 14px;margin:14px 0;font-style:italic}
+.tag{font-size:12px;color:#6b4f1d}
+.topnav{position:sticky;top:0;background:#f4ecd8;border-bottom:2px solid #8a6d3b;padding:10px 4px;z-index:50;display:flex;gap:18px;flex-wrap:wrap;font-size:17px}
+.topnav a{color:#6b4f1d;text-decoration:none;font-weight:bold}
+.topnav a:hover{text-decoration:underline}
+.tline{font-family:ui-monospace,monospace;font-size:15px;line-height:2.1;background:#fffdf5;border-bottom:1px dotted #e0d4ae;padding:2px 6px}
+.hlink{cursor:pointer;padding:1px 3px;border-radius:3px;color:#1e6eff;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.hlink:hover{background:#dbe7ff}
+.hplain{padding:1px 3px;color:#2b2118}
+#foliosel{font-size:18px;padding:8px;margin:8px 0}
+#hpanel{border:2px solid #1e6eff;background:#f4f8ff}
+.hwordrow{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hword{font-family:ui-monospace,monospace;font-size:30px;font-weight:bold;color:#1e6eff}
+.hrebus{font-size:40px;letter-spacing:4px}
+.hpredicted{font-size:19px;margin-top:10px}
+.hslotsline{margin-top:10px}
+.hslot{display:inline-block;background:#fff;border:1px solid #c9b98a;border-radius:6px;padding:4px 10px;margin:3px}
+.hem{font-size:18px}
+.hanchors{margin-top:10px}
+.anchorbtn{font-family:Georgia,serif;font-size:14px;padding:5px 12px;margin:3px;border:1px solid #8a6d3b;border-radius:14px;background:#e8dcc0;cursor:pointer}
+.anchorbtn:hover{background:#d9c88f}
+table{border-collapse:collapse;width:100%;background:#fffdf5}
+th,td{border:1px solid #d8cba0;padding:7px 10px;text-align:left}
+th{background:#e8dcc0}
+.acard{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid #d8cba0;border-radius:8px;padding:10px 14px;margin:8px 0}
+.aglyph{font-family:ui-monospace,monospace;font-size:30px;font-weight:bold;min-width:88px;color:#2b2118}
+.aemoji{font-size:40px;min-width:56px;text-align:center}
+.abody{flex:1;min-width:0}
+.ameaning{font-size:18px;font-weight:bold}
+.aexample{font-family:ui-monospace,monospace;font-size:16px;color:#1e6eff;cursor:pointer;text-decoration:underline}
+.aexample:hover{background:#dbe7ff}
+.anote{font-size:13px;color:#6b4f1d;font-style:italic;margin-top:2px}
+.conf{font-size:11px;font-weight:bold;padding:2px 10px;border-radius:10px;margin-left:8px;white-space:nowrap;font-family:Georgia,serif}
+.conf-c{background:#dff0d8;color:#2e6b2e}
+.conf-p{background:#fcf3d9;color:#8a6d3b}
+.conf-u{background:#f3e2e2;color:#a00}
+.conf-v{background:#e2e8f3;color:#2e4a6b}
+</style></head><body>
+<nav class="topnav">
+<a href="index.html">🔍 Glyph Index</a>
+<a href="manuscript.html">📜 Clickable Manuscript</a>
+<a href="backstory.html">📖 How It Was Built</a>
+</nav>
+<h1>🧩 Hyperglyph Manuscript</h1>
+<div class="note">Shannon's slot-language reader. The words that look like words aren't words —
+they're <b>hyperglyphs</b>: little rebus-pictures made of slot-syllables that point
+somewhere, like "see page 17, figure 4." <b style="color:#1e6eff">Only the blue words are links now</b> —
+click a whole word and read its rebus: one emoji per slot, plus what the word is predicted to mean.
+The slots themselves aren't clicked; they work behind the scenes to build the reading.</div>
+<div class="panel" style="margin-top:0">
+<select id="foliosel"></select>
+<span class="tag" id="foliostats" style="margin-left:12px"></span>
+</div>
+<div id="hpanel" class="panel" hidden></div>
+<div id="reader" class="panel"></div>
+<h2>🔤 Slot Alphabet — Shannon's key</h2>
+<div class="panel">
+<div class="note" style="margin-top:0">Read a word's emojis left to right — that's the rebus. The predicted meaning follows. ❓ marks slots Shannon hasn't named yet. Tap any example word to read it.</div>
+<div id="alphabet"></div>
+</div>
+<div class="note">Experimental: the first draft of reading, not the last. Built from Shannon's
+April 2026 slot dictionary and the October label analysis. The full slot map is still being drawn —
+as it fills in, these readings get sharper.</div>
+<script src="hyperglyph-data.js"></script>
+<script src="hyperglyph.js"></script>
+</body></html>
