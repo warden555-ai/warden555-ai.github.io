@@ -3,31 +3,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Voynich Cross-Reference Index</title>
 <style>
-body{font-family:Georgia,serif;background:#f4ecd8;color:#2b2118;max-width:1100px;margin:0 auto;padding:20px}
-h1{border-bottom:3px double #8a6d3b;padding-bottom:10px}
-h2{color:#6b4f1d;margin-top:36px}
-#search{width:100%;font-size:22px;padding:12px;border:2px solid #8a6d3b;border-radius:6px;background:#fffdf5}
-.panel{background:#fffdf5;border:1px solid #c9b98a;border-radius:8px;padding:18px;margin-top:16px}
-table{border-collapse:collapse;width:100%;background:#fffdf5}
-th,td{border:1px solid #d8cba0;padding:7px 10px;text-align:left}
-th{background:#e8dcc0}
-tr.clickable{cursor:pointer} tr.clickable:hover{background:#f7efdb}
-.bar{display:inline-block;height:14px;background:#8a6d3b;border-radius:3px;vertical-align:middle}
-.foliochip{display:inline-block;background:#e8dcc0;border:1px solid #b09a5e;border-radius:12px;padding:3px 10px;margin:3px;cursor:pointer;font-size:14px}
-.foliochip:hover{background:#d9c88f}
-#viewer img{max-width:100%;border:1px solid #8a6d3b;border-radius:4px}
-.morph{display:inline-block;background:#dfe8d0;border:1px solid #7a9a5a;border-radius:6px;padding:4px 10px;margin:3px;cursor:pointer}
-.tag{font-size:12px;color:#6b4f1d}
+body{font-family:Georgia,serif;background:#eef2f7;color:#1f2a37;max-width:1100px;margin:0 auto;padding:20px}
+h1{border-bottom:3px double #3b6ea5;padding-bottom:10px}
+h2{color:#2c5f8a;margin-top:36px}
+#search{width:100%;font-size:22px;padding:12px;border:2px solid #3b6ea5;border-radius:6px;background:#ffffff}
+.panel{background:#ffffff;border:1px solid #c3d0e0;border-radius:8px;padding:18px;margin-top:16px}
+table{border-collapse:collapse;width:100%;background:#ffffff}
+th,td{border:1px solid #d3dce8;padding:7px 10px;text-align:left}
+th{background:#dbe7f3}
+tr.clickable{cursor:pointer} tr.clickable:hover{background:#e8f0fa}
+.bar{display:inline-block;height:14px;background:#3b6ea5;border-radius:3px;vertical-align:middle}
+.foliochip{display:inline-block;background:#dbe7f3;border:1px solid #9db8d6;border-radius:12px;padding:3px 10px;margin:3px;cursor:pointer;font-size:14px}
+.foliochip:hover{background:#c3d6ec}
+#viewer img{max-width:100%;border:1px solid #3b6ea5;border-radius:4px}
+.morph{display:inline-block;background:#e3edf7;border:1px solid #7ba3cc;border-radius:6px;padding:4px 10px;margin:3px;cursor:pointer}
+.tag{font-size:12px;color:#2c5f8a}
 .sectiongrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
-.tline{font-family:ui-monospace,monospace;font-size:15px;line-height:2.1;background:#fffdf5;border-bottom:1px dotted #e0d4ae;padding:2px 6px}.tok{cursor:pointer;padding:1px 3px;border-radius:3px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}.tok:hover{background:#e8dcc0}.emojiline{font-size:13px;line-height:1.7;padding:0 6px 8px;color:#6b4f1d;background:#fffdf5;border-bottom:1px dotted #e0d4ae;letter-spacing:1px}
+.tline{font-family:ui-monospace,monospace;font-size:15px;line-height:2.1;background:#ffffff;border-bottom:1px dotted #d3dce8;padding:2px 6px}.tok{cursor:pointer;padding:1px 3px;border-radius:3px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}.tok:hover{background:#dbe7f3}.emojiline{font-size:13px;line-height:1.7;padding:0 6px 8px;color:#2c5f8a;background:#ffffff;border-bottom:1px dotted #d3dce8;letter-spacing:1px}
 .toplink{font-weight:bold;text-decoration:underline;text-decoration-thickness:2px}#foliosel{font-size:18px;padding:8px;margin:8px 0}
-.note{background:#f9f3e2;border-left:4px solid #8a6d3b;padding:10px 14px;margin:14px 0;font-style:italic}
-.topnav{position:sticky;top:0;background:#f4ecd8;border-bottom:2px solid #8a6d3b;padding:10px 4px;z-index:50;display:flex;gap:18px;flex-wrap:wrap;font-size:17px}
-.topnav a{color:#6b4f1d;text-decoration:none;font-weight:bold}
+.note{background:#e8f0fa;border-left:4px solid #3b6ea5;padding:10px 14px;margin:14px 0;font-style:italic}
+.topnav{position:sticky;top:0;background:#eef2f7;border-bottom:2px solid #3b6ea5;padding:10px 4px;z-index:50;display:flex;gap:18px;flex-wrap:wrap;font-size:17px}
+.topnav a{color:#2c5f8a;text-decoration:none;font-weight:bold}
 .topnav a:hover{text-decoration:underline}
-.hero{position:relative;border:2px solid #8a6d3b;border-radius:8px;overflow:hidden;margin-bottom:14px}
+.hero{position:relative;border:2px solid #3b6ea5;border-radius:8px;overflow:hidden;margin-bottom:14px}
 .hero img{display:block;width:100%;height:auto}
-.hero-title{position:absolute;left:0;right:0;bottom:0;padding:44px 22px 16px;background:linear-gradient(transparent,rgba(24,17,10,.85));color:#f7efdb;font-size:clamp(26px,5vw,44px);text-shadow:0 2px 8px rgba(0,0,0,.7)}
+.hero-title{position:absolute;left:0;right:0;bottom:0;padding:44px 22px 16px;background:linear-gradient(transparent,rgba(20,40,70,.85));color:#e8f0fa;font-size:clamp(26px,5vw,44px);text-shadow:0 2px 8px rgba(0,0,0,.7)}
 section{scroll-margin-top:70px}
 </style></head><body>
 <div class="hero">
@@ -72,7 +72,7 @@ Start with the <b>Hyperglyph Manuscript</b> — the real pages, every glyph a li
 <div class="panel">
 <div class="note" style="margin-top:0">Type any token. It gets split into Shannon's morphemes and read back as emoji &mdash;
 a rough meaning. Unmapped pieces show as &#10067;. Experimental: the first draft of reading, not the last.</div>
-<input id="decoder" placeholder="e.g. qokeedy" autocomplete="off" style="width:100%;font-size:22px;padding:12px;border:2px solid #8a6d3b;border-radius:6px;background:#fffdf5">
+<input id="decoder" placeholder="e.g. qokeedy" autocomplete="off" style="width:100%;font-size:22px;padding:12px;border:2px solid #3b6ea5;border-radius:6px;background:#ffffff">
 <div id="decoded" style="margin-top:14px"></div>
 </div>
 
@@ -97,9 +97,9 @@ a rough meaning. Unmapped pieces show as &#10067;. Experimental: the first draft
 <div id="visitor-comments"></div>
 <p><b>Leave a note for Shannon here:</b></p>
 <form id="note-comment-form">
-<p><label>Your name (optional)<br><input type="text" id="cn-name" style="width:100%;font-size:18px;padding:10px;border:2px solid #8a6d3b;border-radius:6px;background:#fffdf5"></label></p>
-<p><label>Your comment<br><textarea id="cn-msg" rows="4" required style="width:100%;font-size:18px;padding:10px;border:2px solid #8a6d3b;border-radius:6px;background:#fffdf5"></textarea></label></p>
-<p><button type="submit" style="font-size:18px;padding:10px 26px;background:#8a6d3b;color:#fffdf5;border:none;border-radius:6px;cursor:pointer">Send</button>
+<p><label>Your name (optional)<br><input type="text" id="cn-name" style="width:100%;font-size:18px;padding:10px;border:2px solid #3b6ea5;border-radius:6px;background:#ffffff"></label></p>
+<p><label>Your comment<br><textarea id="cn-msg" rows="4" required style="width:100%;font-size:18px;padding:10px;border:2px solid #3b6ea5;border-radius:6px;background:#ffffff"></textarea></label></p>
+<p><button type="submit" style="font-size:18px;padding:10px 26px;background:#3b6ea5;color:#ffffff;border:none;border-radius:6px;cursor:pointer">Send</button>
 <span id="cn-status" class="tag" style="margin-left:12px"></span></p>
 </form>
 </div>

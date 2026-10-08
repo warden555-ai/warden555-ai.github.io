@@ -3,19 +3,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hyperglyph Manuscript — Voynich slot-language reader</title>
 <style>
-body{font-family:Georgia,serif;background:#f4ecd8;color:#2b2118;max-width:1100px;margin:0 auto;padding:20px}
-h1{border-bottom:3px double #8a6d3b;padding-bottom:10px}
-h2{scroll-margin-top:64px;color:#6b4f1d;margin-top:36px}
-.panel{background:#fffdf5;border:1px solid #c9b98a;border-radius:8px;padding:18px;margin-top:16px}
-.note{background:#f9f3e2;border-left:4px solid #8a6d3b;padding:10px 14px;margin:14px 0;font-style:italic}
-.tag{font-size:12px;color:#6b4f1d}
-.topnav{position:sticky;top:0;background:#f4ecd8;border-bottom:2px solid #8a6d3b;padding:10px 4px;z-index:50;display:flex;gap:18px;flex-wrap:wrap;font-size:17px}
-.topnav a{color:#6b4f1d;text-decoration:none;font-weight:bold}
+body{font-family:Georgia,serif;background:#eef2f7;color:#1f2a37;max-width:1100px;margin:0 auto;padding:20px}
+h1{border-bottom:3px double #3b6ea5;padding-bottom:10px}
+h2{scroll-margin-top:64px;color:#2c5f8a;margin-top:36px}
+.panel{background:#ffffff;border:1px solid #c3d0e0;border-radius:8px;padding:18px;margin-top:16px}
+.note{background:#e8f0fa;border-left:4px solid #3b6ea5;padding:10px 14px;margin:14px 0;font-style:italic}
+.tag{font-size:12px;color:#2c5f8a}
+.topnav{position:sticky;top:0;background:#eef2f7;border-bottom:2px solid #3b6ea5;padding:10px 4px;z-index:50;display:flex;gap:18px;flex-wrap:wrap;font-size:17px}
+.topnav a{color:#2c5f8a;text-decoration:none;font-weight:bold}
 .topnav a:hover{text-decoration:underline}
-.tline{font-family:ui-monospace,monospace;font-size:15px;line-height:2.1;background:#fffdf5;border-bottom:1px dotted #e0d4ae;padding:2px 6px}
+.tline{font-family:ui-monospace,monospace;font-size:15px;line-height:2.1;background:#ffffff;border-bottom:1px dotted #d3dce8;padding:2px 6px}
 .hlink{cursor:pointer;padding:1px 3px;border-radius:3px;color:#1e6eff;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
 .hlink:hover{background:#dbe7ff}
-.hplain{padding:1px 3px;color:#2b2118}
+.hplain{padding:1px 3px;color:#1f2a37}
 #foliosel{font-size:18px;padding:8px;margin:8px 0}
 #hpanel{border:2px solid #1e6eff;background:#f4f8ff}
 .hwordrow{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
@@ -23,35 +23,35 @@ h2{scroll-margin-top:64px;color:#6b4f1d;margin-top:36px}
 .hrebus{font-size:40px;letter-spacing:4px}
 .hpredicted{font-size:19px;margin-top:10px}
 .hslotsline{margin-top:10px}
-.hslot{display:inline-block;background:#fff;border:1px solid #c9b98a;border-radius:6px;padding:4px 10px;margin:3px}
+.hslot{display:inline-block;background:#fff;border:1px solid #c3d0e0;border-radius:6px;padding:4px 10px;margin:3px}
 .hem{font-size:18px}
 .hanchors{margin-top:10px}
-.anchorbtn{font-family:Georgia,serif;font-size:14px;padding:5px 12px;margin:3px;border:1px solid #8a6d3b;border-radius:14px;background:#e8dcc0;cursor:pointer}
-.anchorbtn:hover{background:#d9c88f}
-table{border-collapse:collapse;width:100%;background:#fffdf5}
-th,td{border:1px solid #d8cba0;padding:7px 10px;text-align:left}
-th{background:#e8dcc0}
+.anchorbtn{font-family:Georgia,serif;font-size:14px;padding:5px 12px;margin:3px;border:1px solid #3b6ea5;border-radius:14px;background:#dbe7f3;cursor:pointer}
+.anchorbtn:hover{background:#c3d6ec}
+table{border-collapse:collapse;width:100%;background:#ffffff}
+th,td{border:1px solid #d3dce8;padding:7px 10px;text-align:left}
+th{background:#dbe7f3}
 .emgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
-.acell{background:#fff;border:1px solid #d8cba0;border-radius:6px;padding:6px 2px;text-align:center}
-.aglyph{font-family:ui-monospace,monospace;font-size:14px;font-weight:bold;color:#2b2118}
+.acell{background:#fff;border:1px solid #d3dce8;border-radius:6px;padding:6px 2px;text-align:center}
+.aglyph{font-family:ui-monospace,monospace;font-size:14px;font-weight:bold;color:#1f2a37}
 .aemoji{font-size:22px;margin-top:2px}
 .abody{flex:1;min-width:0}
 .ameaning{font-size:15px;font-weight:bold}
 .aexample{font-family:ui-monospace,monospace;font-size:14px;color:#1e6eff;cursor:pointer;text-decoration:underline}
 .aexample:hover{background:#dbe7ff}
-.anote{font-size:13px;color:#6b4f1d;font-style:italic;margin-top:2px}
+.anote{font-size:13px;color:#2c5f8a;font-style:italic;margin-top:2px}
 .conf{font-size:11px;font-weight:bold;padding:2px 10px;border-radius:10px;margin-left:8px;white-space:nowrap;font-family:Georgia,serif}
 .conf-c{background:#dff0d8;color:#2e6b2e}
-.conf-p{background:#fcf3d9;color:#8a6d3b}
+.conf-p{background:#fcf3d9;color:#3b6ea5}
 .conf-u{background:#f3e2e2;color:#a00}
 .conf-v{background:#e2e8f3;color:#2e4a6b}
 .picgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
-.piccard{display:block;background:#fff;border:1px solid #d8cba0;border-radius:6px;overflow:hidden;text-decoration:none;color:#2b2118;cursor:pointer}
-.piccard:hover{box-shadow:0 0 0 2px #8a6d3b}
-.piccard img{width:100%;height:110px;object-fit:cover;display:block;background:#e8dcc0}
+.piccard{display:block;background:#fff;border:1px solid #d3dce8;border-radius:6px;overflow:hidden;text-decoration:none;color:#1f2a37;cursor:pointer}
+.piccard:hover{box-shadow:0 0 0 2px #3b6ea5}
+.piccard img{width:100%;height:110px;object-fit:cover;display:block;background:#dbe7f3}
 .piccap{padding:6px 8px;font-weight:bold;font-size:14px}
-.steparrow{text-align:center;font-size:22px;color:#8a6d3b;margin:2px 0}
-.slotstep h3{margin:8px 0;color:#6b4f1d}
+.steparrow{text-align:center;font-size:22px;color:#3b6ea5;margin:2px 0}
+.slotstep h3{margin:8px 0;color:#2c5f8a}
 </style></head><body>
 <nav class="topnav">
 <a href="#slot-language" style="font-weight:bold">🗝️ Slot Language</a>
